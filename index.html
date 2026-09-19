@@ -1,44 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Makriana Health</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Makriana Batari - Healthcare Virtual Assistant</title>
   <style>
-img {
-max-width: 100% !important;
-height: auto !important;
-}
+    /* Global Resets & Theme colors */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-@media (max-width: 768px) {
-header, nav, section, div {
-box-sizing: border-box;
-}
+    body {
+      background-color: #0c1a30; /* Dark blue background from screenshot */
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-[class*="hero"],
-[class*="container"],
-[class*="grid"],
-[class*="flex"],
-[class*="about"],
-[class*="card"] {
-flex-direction: column !important;
-grid-template-columns: 1fr !important;
-width: 100% !important;
-}
+    /* Header & Navigation */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 8%;
+      position: relative;
+    }
 
-nav {
-flex-wrap: wrap !important;
-justify-content: center !important;
-gap: 10px !important;
-}
+    .logo {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
 
-body {
-padding: 10px !important;
-}
-}
-</style>
+    .nav-menu {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .nav-menu a {
+      color: #b0c4de;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+    }
+
+    .nav-menu a:hover {
+      color: #ffffff;
+    }
+
+    .cta-nav-btn {
+      background-color: #c97c3e; /* Orange accent color from screenshot */
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .cta-nav-btn:hover {
+      background-color: #b06930;
+    }
+
+    /* Menu toggle button (Hidden on desktop screens) */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    /* Hero Section (Desktop view) */
+    .hero-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 40px 8%;
+      flex-grow: 1;
+      gap: 40px;
+    }
+
+    .hero-text {
+      flex: 1;
+      max-width: 600px;
+    }
+
+    .sub-brand {
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      color: #b0c4de;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 15px;
+    }
+
+    h1 em {
+      font-style: italic;
+      font-family: Georgia, serif;
+      font-weight: 400;
+    }
+
+    .role-title {
+      font-size: 1.1rem;
+      color: #b0c4de;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .description {
+      color: #d1dbe5;
+      line-height: 1.6;
+      margin-bottom: 35px;
+      font-size: 1.05rem;
+    }
+
+    /* Hero Buttons */
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .btn-primary {
+      background-color: #c97c3e;
+      color: white;
+      padding: 14px 28px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .btn-secondary {
+      border: 1px solid #ffffff;
+      color: white;
+      padding: 14px 28px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .email-instead {
+      color: #b0c4de;
+      font-size: 0.9rem;
+    }
+
+    .email-instead a {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    /* Hero Image */
+    .hero-image-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-circle {
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin-bottom: 20px;
+    }
+
+    .profile-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .location-tag {
+      background-color: #ffffff;
+      color: #0c1a30;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* ========================================== */
+    /* MOBILE OPTIMIZATION RESPONSIVE OVERRIDES  */
+    /* ========================================== */
+    @media (max-width: 768px) {
+      header {
+        padding: 20px 4%;
+      }
+
+      .menu-toggle {
+        display: block; /* Show hamburger button on mobile screens */
+      }
+
+      .nav-menu {
+        display: none; /* Hide the vertical link list by default on mobile */
+        flex-direction: column;
+        width: 100%;
+        background-color: #0c1a30;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        padding: 20px 0;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+        z-index: 100;
+        gap: 15px;
+        text-align: center;
+      }
+
+      .nav-menu.active {
+        display: flex; /* Show the list when hamburger is clicked */
+      }
+
+      .cta-nav-btn {
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .hero-container {
+        flex-direction: column-reverse; /* Put photo on top for better mobile stack layout */
+        padding: 40px 4% 20px 4%;
+        gap: 30px;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+      }
+
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        text-align: center;
+      }
+
+      .profile-circle {
+        width: 240px;
+        height: 240px;
+      }
+    }
+  </style>
 </head>
 <body>
-<h1>Welcome to Makriana Health</h1>
+
+  <!-- Top Navigation Header -->
+  <header>
+    <div class="logo">Makriana Batari</div>
+    <button class="menu-toggle" aria-label="Toggle Navigation">☰</button>
+    <nav class="nav-menu">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#tools">Tools</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#contact">Contact</a>
+      <a href="#work" class="cta-nav-btn">Let's Work Together</a>
+    </nav>
+  </header>
+
+  <!-- Main Hero Section -->
+  <main class="hero-container">
+    
+    <!-- Left column text contents -->
+    <div class="hero-text">
+      <span class="sub-brand">— MAKRIANA BATARI</span>
+      <h1>Helping Medical Clinics Attract, <em>Manage & Convert Leads</em></h1>
+      <p class="role-title">Lead Generation Specialist | Healthcare Virtual Assistant</p>
+      <p class="description">
+        I help medical clinics and healthcare practices generate qualified leads, 
+        support outreach, organize client information, and streamline day-to-day operations.
+      </p>
+      
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">Book Your Free 15-Min Call</a>
+        <a href="#" class="btn-secondary">View My Portfolio</a>
+      </div>
+      
+      <p class="email-instead">or <a href="mailto:your-email@example.com">email me</a> instead</p>
+    </div>
+
+    <!-- Right column avatar and badge layout -->
+    <div class="hero-image-area">
+      <div class="profile-circle">
+        <!-- REPLACE placeholder below with your real image URL or path -->
+        <img src="https://placeholder.com" alt="Makriana Batari">
+      </div>
+      <div class="location-tag">Bali, Indonesia • working remotely</div>
+    </div>
+
+  </main>
+
+  <!-- Script to activate the click toggle for mobile navigation menu -->
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+
+    menuToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+  </script>
+
 </body>
 </html>
