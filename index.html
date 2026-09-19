@@ -4,6 +4,39 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Makriana Health</title>
+  <style>
+img {
+max-width: 100% !important;
+height: auto !important;
+}
+
+@media (max-width: 768px) {
+header, nav, section, div {
+box-sizing: border-box;
+}
+
+[class*="hero"],
+[class*="container"],
+[class*="grid"],
+[class*="flex"],
+[class*="about"],
+[class*="card"] {
+flex-direction: column !important;
+grid-template-columns: 1fr !important;
+width: 100% !important;
+}
+
+nav {
+flex-wrap: wrap !important;
+justify-content: center !important;
+gap: 10px !important;
+}
+
+body {
+padding: 10px !important;
+}
+}
+</style>
 </head>
 <body>
 <h1>Welcome to Makriana Health</h1>
